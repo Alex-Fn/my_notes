@@ -9114,6 +9114,204 @@ each of the iterables.  Stops when the shortest iterable is exhausted.
 
 PyDoc: функция help. стр. 446
 
+Инструмент Питона PyDoc умеет извлекать строки документирования вместе с информацией о структуре программных компонентов и формирует отчет.
+
+Два, самых заметных интерфейса в PyDoc, это функция help и графический интерфейс для отчетов в формате HTML.
+
+>>> import sys
+>>> help(sys.getrefcount)
+Help on built-in function getrefcount in module sys:
+
+getrefcount(...)
+    getrefcount(object) -> integer
+    
+    Return the reference count of object.  The count returned is generally
+    one higher than you might expect, because it includes the (temporary)
+    reference as an argument to getrefcount(). 
+
+- мы импортировали модуль sys, чтобы выяснить информацию по модулю, функция help работает и без импорта модуля.
+
+
+Еще пример:
+
+>>> help(sys)
+Help on built-in module sys:
+
+NAME
+    sys
+
+MODULE REFERENCE
+    http://docs.python.org/3.4/library/sys
+    
+    The following documentation is automatically generated from the Python
+    source files.  It may be incomplete, incorrect or include features that
+    are considered implementation detail and may vary between Python
+    implementations.  When in doubt, consult the module reference at the
+    location listed above.
+
+DESCRIPTION
+    This module provides access to some objects used or maintained by the
+    interpreter and to functions that interact strongly with the interpreter.
+...остальной текст опущен... 
+	
+FUNCTIONS
+    __displayhook__ = displayhook(...)
+        displayhook(object) -> None
+        
+        Print an object to sys.stdout and also save it in builtins._	
+	...остальной текст опущен...
+	
+DATA
+    __stderr__ = None
+    __stdin__ = None
+    __stdout__ = None
+	
+...остальной текст опущен, там очень много дальше...
+
+
+Также можно получить информацию о встроенном типе, передав функции имя типа (dict - для словарей,  str - для строк, list - для списков и т.д.):
+
+>>> help(dict)
+Help on class dict in module builtins:
+
+class dict(object)
+ |  dict() -> new empty dictionary
+ |  dict(mapping) -> new dictionary initialized from a mapping object's
+...далее текст опущен...
+
+
+>>> help(str.replace)
+Help on method_descriptor:
+
+replace(...)
+    S.replace(old, new[, count]) -> str
+    
+    Return a copy of S with all occurrences of substring
+    old replaced by new.  If the optional argument count is
+    given, only the first count occurrences are replaced.
+	
+	
+>>> help(ord)
+Help on built-in function ord in module builtins:
+
+ord(...)
+    ord(c) -> integer
+    
+    Return the integer ordinal of a one-character string.
+	
+
+	
+Также help может извлекать информацию не только из встроенных модулей, напр. из нашего docstring.py:
+
+>>> import docstring
+16
+
+	function domentation
+	can we have your liver then?
+	
+>>> help(docstring.square)
+Help on function square in module docstring:
+
+square(x)
+    function domentation
+    can we have your liver then?
+
+>>> help(docstring.Employee)
+Help on class Employee in module docstring:
+
+class Employee(builtins.object)
+ |  class documentation
+ |  
+ |  Data descriptors defined here:
+ |  
+ |  __dict__
+ |      dictionary for instance variables (if defined)
+ |  
+ |  __weakref__
+ |      list of weak references to the object (if defined)
+
+>>> help(docstring)
+Help on module docstring:
+
+NAME
+    docstring
+
+DESCRIPTION
+    Module documentation
+    Words Go Here
+
+CLASSES
+    builtins.object
+        Employee
+    
+    class Employee(builtins.object)
+     |  class documentation
+     |  
+     |  Data descriptors defined here:
+     |  
+     |  __dict__
+     |      dictionary for instance variables (if defined)
+     |  
+     |  __weakref__
+     |      list of weak references to the object (if defined)
+
+FUNCTIONS
+    square(x)
+        function domentation
+        can we have your liver then?
+
+DATA
+    spam = 40
+
+FILE
+    c:\python34\docstring.py
+
+>>> 
+ 
+
+
+PyDoc: отчеты в формате HTML.
+
+Сценарий Python/tkinter создает отчеты в формате HTML, для просомтра в браузере, причем как локально так и удаленно.
+
+Запускаем поисковый механизм, с графич. интерфейсом из меню Пуск, Документация модулей (у меня это было Docs Server) или запустить pydocgui.pyw из каталога Tools/Scripts.
+ 
+Ищем в поиске нужный нам модуль (напр. glob), и в найденных результатах жмем на нужный нам. Далее откроется описание модуля, с ссылками на импортированные модули и др.
+
+
+Можно посмотреть и наш docstring, набрав в поиске его имя.
+
+
+Также обращайтесь ко всем возможным средствам поиска информации будь то веб или печатные издания или документация Питона.
+
+ 
+
+ 
+Типичные ошибки программирования.
+
+- Не забывайте про двоеточия. Обязательно ставьте двоеточия, не забывайте, будьте внимательны.
+
+- Начинайте с первой позиции в строке. Иначе получите сообщение об ошибке, в первой позиции никаих пробелов и отступов не нужно. 
+
+- Пустые строки имеют особый смысл в интерактивной оболочке. Внутри файлов модулей пустые строки просто игнорируются, но в интерактивной оболочке это специальные строки в составных инструкциях.
+
+- Используйте отступы непротиворечивым способом. Не смешивайте пробелы и символы табуляции пр ифоформлении отступов. Это справедливо для любого ЯП. Используйте или пробелы или табуляцию, но НЕ одновременно вместе.  
+ 
+- Не пишите на языке С. Не нужно заключать в скобки условные выражения if и while, можно, но это лишнее в Питон. Не нужно точек с запятой, можно, но в Питон это, опять же, лишнее. И помните - не встраивайте инструкции присваивания в условные выражения циклов while и не заключайте блоки в фигурные скобки.
+
+- Вместо циклов while и функции range старайтесь использовать простые циклы for. Простые циклы for почти всегда быстрее и проще, т.к. в основном нагружен сам интерпретатор. И избегайте искушения считать что-либо в циклах на языке Питон. 
+
+- Будьте внимательны, выполняя присваивание изменяемых объектов. Напр. (a = b = [])или (a += [1, 2]) и прочих. Помните о том, что возможно изменение других переменных при изменении одной.
+
+- Не ожидайте получения результатов от функций, выполняющих непосредственное изменение в объектах. Напр. методы append или sort, не возвращают ничего (кроме None), поэтмоу их нужно вызыват ьбез присвоения значения. Ошибки: mylist = mylist.append(X) - в переменную mylist запишется ссылка на объект None, а не на измененный список, в итоге список мы потеряем совсем.
+
+- Всегда используйте круглые скобки при вызове функций. Даже елси аргументв онет все равно вызываем в видле function(). Например если мы попытаемся закрыть файл file.close то ошибки не будет (т.к. обращение к методу может быть без скобок в Питоне), но файл не закроется!
+
+- Не используйте расширения имен файлов в инструкциях import и reload.
+  
+
+
+Упражнения к третьей части книги. стр. 457.
 
 
 
@@ -9121,6 +9319,16 @@ PyDoc: функция help. стр. 446
 
 
 
+
+
+
+
+
+Часть. 4. Функции. стр. 459
+
+
+
+Глава 16. Основы функций. стр. 461
 
 
 
